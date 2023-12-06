@@ -1,0 +1,45 @@
+<div class="">
+  <div class="mb-4 bg-primary d-flex text-center justify-content-between p-4 text-light">
+    <%= link_to events_path, class: "pe-4 text-decoration-none text-light" do %>
+      <i class="fas fa-arrow-left fe-2 float-start"></i>
+    <% end %>
+    <span><%= @event.name %></span>
+    <span class='text-bold'><%= number_to_currency(@event.bookings.sum(:amount), unit: "$") %></span>
+
+  </div>
+  <div class="row gap-2 justify-content-center p-3 pt-0 mt-0 pb-5">
+    <% @bookings.each do |booking| %>
+      <div class="col-md-12 card p-0 text-secondary">
+        <div class="d-flex">
+          <div class="col-3 col-md-1">
+            <img src=<%= @event.icon %> class='img-tumbnail'>
+          </div>
+          <div class="col-6 col-md-8">
+            <div class="col-12">
+              <%= booking.name %>
+            </div>
+            <div class="col-12 mt-4">
+              <%= booking.created_at.strftime('%b %d %Y') %>
+            </div>
+          </div>
+          <div class="col-3">
+            <p class='text-bold text-dark text-end pe-1'><%= number_to_currency(booking.amount, unit: "$") %></p>
+          </div>
+        </div>
+        <div class="p-1">
+          <%= form_with(model: booking, url: event_booking_path(@event, booking), method: :delete, data: { confirm: 'Are you sure?' }, class: 'd-flex gap-2 justify-content-end') do |form| %>
+            <%= link_to edit_event_booking_path(@event, booking), class: 'btn btn-sm btn-primary mr-2' do %>
+              <i class="fas fa-edit"></i>
+            <% end %>
+              <%= form.button type: 'submit', class: 'btn btn-danger btn-sm' do %>
+                <i class="fa fa-trash"></i>
+              <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+  <div class="text-center bottom-element w-100">
+    <%= link_to "New Booking", new_event_booking_path(@event), class: "btn btn-success w-100" %>
+  </div>

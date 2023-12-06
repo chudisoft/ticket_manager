@@ -1,0 +1,25 @@
+<div class="mb-4 bg-primary d-flex text-center justify-content-between p-4 text-light">
+  <%= link_to event_bookings_path(@event), class: "pe-4 text-decoration-none text-light" do %>
+    <i class="fas fa-arrow-left fe-2 float-start"></i>
+  <% end %>
+  <span><%= @event.name %></span>
+  <span class='text-bold'><%= number_to_currency(@event.bookings.sum(:amount), unit: "$") %></span>
+
+</div>
+
+<div class="mt-4 p-2">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          New Booking
+        </div>
+        <div class="card-body">
+          <%= form_with(model: [@event, @booking], url: event_bookings_path(@event), method: :post) do |f| %>
+            <%= render 'form', booking: @booking, f: f %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
