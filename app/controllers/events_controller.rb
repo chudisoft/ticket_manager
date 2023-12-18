@@ -2,7 +2,7 @@
 # Events represent certain objects within the system.
 # It handles CRUD operations for Events.
 class EventsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_event, only: %i[edit update destroy]
 
   def index
@@ -18,6 +18,10 @@ class EventsController < ApplicationController
     @events.each do |event|
       @event_booking_sums[event.id] = event.bookings.sum(:amount)
     end
+  end
+
+  def show
+    @events = Event.find(params[:id])
   end
 
   def new

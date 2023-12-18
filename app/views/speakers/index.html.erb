@@ -1,0 +1,15 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Speakers</h1>
+
+<div id="speakers">
+  <% @speakers.each do |speaker| %>
+    <%= render speaker, locals: { speaker: speaker, show_short_bio: true } %>
+    <p>
+      <%= link_to "Show", speaker %> |
+      <%= link_to 'Edit', edit_speaker_path(speaker) %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New speaker", new_speaker_path %>

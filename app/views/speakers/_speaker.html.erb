@@ -1,0 +1,18 @@
+<div id="<%= dom_id speaker %>">
+  <h1><%= speaker.title %></h1>
+
+  <div>
+    <p>Name: <%= speaker.name %></p>
+
+    <% if speaker.image.attached? %>
+      <p>Image:</p>
+      <%= image_tag speaker.pic %>
+    <% end %>
+
+    <% if local_assigns[:show_short_bio] && speaker.bio.length > 150 %>
+      <p>BIO: <%= truncate(speaker.bio, length: 150) %></p>
+    <% else %>
+      <p>BIO: <%= speaker.bio %></p>
+    <% end %>
+  </div>
+</div>

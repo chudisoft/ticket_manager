@@ -1,0 +1,29 @@
+
+<%= simple_form_for(@speaker) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+
+      <% if @speaker.image.attached? %>
+        <p>Speaker Image:</p>
+        <%= image_tag @speaker.pic %>
+      <% end %>
+      
+      <%= form.label :image %>
+      <%= form.file_field :image %>
+
+      <%= form.label :bio %>
+      <%= form.text_area :bio %>
+
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

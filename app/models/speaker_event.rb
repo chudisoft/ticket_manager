@@ -5,6 +5,8 @@ class SpeakerEvent < ApplicationRecord
 
   validates :topic, presence: true, length: { minimum: 4, maximum: 150 }
   validates :details, presence: true, length: { minimum: 4, maximum: 1500 }
-  validates :speak_from, presence: true
-  validates :speak_to, presence: true
+  validates :speak_from, presence: true, timeliness: { type: :datetime }
+  validates :speak_to, presence: true, timeliness: { type: :datetime, after: :speak_from }
+
+  # Other validations...
 end

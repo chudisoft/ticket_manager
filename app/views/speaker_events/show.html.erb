@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @speaker_event %>
+
+<div>
+  <%= link_to "Edit this speaker event", edit_speaker_event_path(@speaker_event) %> |
+  <%= link_to "Back to speaker events", speaker_events_path %>
+
+  <%= button_to "Destroy this speaker event", @speaker_event, method: :delete %>
+</div>

@@ -1,7 +1,5 @@
 # This Class handles operations related to User Record
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -9,15 +7,19 @@ class User < ApplicationRecord
   has_many :bookings
   has_many :speakers
 
-  validates :id, presence: true, length: { minimum: 16, maximum: 36 }
+  enum role: { guest: 0, member: 1, admin: 2 }
+
   validates :fname, presence: true, length: { minimum: 3, maximum: 50 }
   validates :phone, presence: true, length: { minimum: 11, maximum: 15 }
   validates :role, presence: true, length: { minimum: 4, maximum: 7 }
-  validate :fullname
+  validates :credit_card, length: { minimum: 15, maximum: 16 }, allow_blank: true
+  validates :credit_card_expiry, length: { is: 5 }, allow_blank: true
 
-  def fullname
-    return unless fname.present? && fname.split.size != 2
+  validate :fullname_format
 
-    errors.add(:fname, 'Name must contain two names separated by a space')
+  def fullname_format
+    return if fname.blank? || fname.split.size >= 2
+
+    errors.add(:fname, 'Name must contain at least two names separated by a space')
   end
 end

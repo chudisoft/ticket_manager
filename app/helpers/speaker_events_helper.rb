@@ -1,0 +1,2 @@
+module SpeakerEventsHelper
+end

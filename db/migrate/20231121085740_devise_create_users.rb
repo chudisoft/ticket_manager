@@ -3,14 +3,17 @@
 # This Class handles operations related to Device Migration
 class DeviseCreateUsers < ActiveRecord::Migration[7.1]
   def change
-    create_table :users do |t|
+    create_table :users, id: :string do |t|
       ## Database authenticatable
-      t.string :id,              null: false, default: ''
+      # t.string :id,              null: false, default: ''
       t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
       t.string :fname, null: false, default: ''
       t.string :phone, null: false, default: ''
-      t.string :address,                        default: ''
+      t.string :address, default: ''
+      t.boolean :remember_card, default: false
+      t.string :creadit_card, default: ''
+      t.string :creadit_card_expiry, default: ''
       t.string :role, null: false, default: 'guest'
 
       ## Recoverable

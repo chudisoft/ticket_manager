@@ -4,10 +4,15 @@ Rails.application.routes.draw do
   root 'home#index'
   devise_for :users, controllers: { registrations: 'registrations' }
 
+  # resources :speaker_events
+  resources :speakers
   # resources :events #, only: [:new, :edit, :create, :destroy]
   # resources :bookings #, only: [:new, :edit, :create, :destroy]
   resources :events do
-    resources :bookings
+    resources :bookings do
+      resources :payments
+    end
+    resources :payments
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

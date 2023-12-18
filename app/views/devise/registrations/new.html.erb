@@ -17,6 +17,18 @@
     </ul>
     <div class="card-body p-2">
       <div class="form-group mb-2">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-secondary">
+            <%= f.radio_button :role, :member, checked: true, autocomplete: "off" %>
+            Member
+          </label>
+          <label class="btn btn-secondary">
+            <%= f.radio_button :role, :guest, autocomplete: "off" %>
+            Guest
+          </label>
+        </div>
+      </div>
+      <div class="form-group mb-2">
         <%= f.text_field :fname, autofocus: true, autocomplete: "fullname", placeholder: "Full Name", class: 'form-control' %>
       </div>
       <div class="form-group mb-2">
