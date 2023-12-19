@@ -12,3 +12,6 @@
 User.create(email: 'admin@chudisoft.com', password: 'Admin_2023', fname: 'Admin Account', role: :admin)
 User.create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :member)
 User.create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :guest)
+# User.find_or_create(email: 'admin@chudisoft.com', password: 'Admin_2023', fname: 'Admin Account', role: :admin)
+# User.find_or_create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :member)
+# User.find_or_create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :guest)

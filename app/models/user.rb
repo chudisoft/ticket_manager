@@ -3,9 +3,9 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :events
-  has_many :bookings
-  has_many :speakers
+  has_many :events, dependent: :destroy
+  has_many :bookings, dependent: :destroy
+  has_many :speakers, dependent: :destroy
 
   enum role: { guest: 0, member: 1, admin: 2 }
 
