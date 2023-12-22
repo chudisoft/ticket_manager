@@ -9,12 +9,13 @@ class DeviseCreateUsers < ActiveRecord::Migration[7.1]
       t.string :email,              null: false, default: ''
       t.string :encrypted_password, null: false, default: ''
       t.string :fname, null: false, default: ''
-      t.string :phone, null: false, default: ''
+      t.string :phone, default: '', null: true
       t.string :address, default: ''
       t.boolean :remember_card, default: false
-      t.string :creadit_card, default: ''
-      t.string :creadit_card_expiry, default: ''
+      t.string :credit_card, default: ''
+      t.string :credit_card_expiry, default: ''
       t.string :role, null: false, default: 'guest'
+      t.integer :status, null: false, default: 1
 
       ## Recoverable
       t.string   :reset_password_token

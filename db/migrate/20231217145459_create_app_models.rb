@@ -9,9 +9,11 @@ class CreateAppModels < ActiveRecord::Migration[7.1]
       t.datetime :datetime, null: false
       t.string :venue, null: false
       t.string :details, null: false
+      t.string :hashes, null: true
       t.decimal :vip_price, null: false
       t.decimal :regular_price, null: false
       t.integer :available_slot, null: false
+      t.integer :status, null: false
       t.timestamps
 
     end

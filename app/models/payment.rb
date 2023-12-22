@@ -4,10 +4,10 @@ include PaymentsHelper
 class Payment < ApplicationRecord
   belongs_to :booking
   enum method: {
-    credit_card: 'Credit Card',
-    bank_transfers: 'Bank Transfers',
-    crypto: 'Crypto',
-    cash: 'Cash'
+    credit_card: 0, # 'Credit Card',
+    bank_transfers: 1, # 'Bank Transfers',
+    crypto: 2, # 'Crypto',
+    cash: 3, # 'Cash'
   }
   validates :transaction_id, presence: true, length: { minimum: 3 }
   validates :currency, presence: true

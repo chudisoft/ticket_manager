@@ -8,9 +8,16 @@ class User < ApplicationRecord
   has_many :speakers, dependent: :destroy
 
   enum role: { guest: 0, member: 1, admin: 2 }
+  enum status: {
+    active: 0,
+    inactive: 1,
+    blocked: 2,
+  }
+
 
   validates :fname, presence: true, length: { minimum: 3, maximum: 50 }
-  validates :phone, presence: true, length: { minimum: 11, maximum: 15 }
+  # validates :phone, presence: false, length: { minimum: 11, maximum: 15 }
+  validates :phone, allow_blank: true, length: { minimum: 11, maximum: 15 }
   validates :role, presence: true, length: { minimum: 4, maximum: 7 }
   validates :credit_card, length: { minimum: 15, maximum: 16 }, allow_blank: true
   validates :credit_card_expiry, length: { is: 5 }, allow_blank: true

@@ -2,17 +2,37 @@
 # Events represent certain objects within the system.
 # It handles CRUD operations for Events.
 class EventsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [:index_Unauth, :show]
   before_action :set_event, only: %i[edit update destroy]
 
-  def index
-    @events = current_user.events.includes(:bookings)
+  def index_Unauth
+    @events = Event.where(status: :active).includes(:bookings)
 
-    @events = if params[:sort] == 'ancient'
-                @events.order(created_at: :asc)
-              else # if params[:sort] == 'recent'
-                @events.order(created_at: :desc)
-              end
+    if params[:sort] == 'ancient'
+      @events = @events.order(created_at: :asc)
+    else # if params[:sort] == 'recent'
+      @events = @events.order(created_at: :desc)
+    end
+
+    @event_booking_sums = {}
+    @events.each do |event|
+      @event_booking_sums[event.id] = event.bookings.sum(:amount)
+    end
+  end
+
+  def index
+    if current_user.admin?
+      @events = Event.all.includes(:bookings)
+    else
+      # @events = current_user.events.where(status: :blocked).includes(:bookings)
+      @events = current_user.events.where(status != blocked).includes(:bookings)
+    end
+
+    if params[:sort] == 'ancient'
+      @events = @events.order(created_at: :asc)
+    else # if params[:sort] == 'recent'
+      @events = @events.order(created_at: :desc)
+    end
 
     @event_booking_sums = {}
     @events.each do |event|
@@ -25,7 +45,8 @@ class EventsController < ApplicationController
   end
 
   def new
-    @event = current_user.events.build
+    # @event = current_user.events.build
+    @event = Event.new(organizer_id: current_user.id)
   end
 
   def edit
@@ -67,6 +88,6 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:name, :icon)
+    params.require(:event).permit(:title, :datetime, :venue, :details, :vip_price, :regular_price, :available_slot, :status, :organizer_id)
   end
 end

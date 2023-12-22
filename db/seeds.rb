@@ -9,9 +9,11 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create(email: 'admin@chudisoft.com', password: 'Admin_2023', fname: 'Admin Account', role: :admin)
-User.create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :member)
-User.create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :guest)
+# Use SecureRandom.uuid to generate UUIDs
+User.create(id: SecureRandom.uuid, email: 'admin@chudisoft.com', password: 'Admin_2023', fname: 'Admin Account', role: :admin, status: :active)
+User.create(id: SecureRandom.uuid, email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :member, status: :active)
+User.create(id: SecureRandom.uuid, email: 'user1@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :guest, status: :active)
+
 # User.find_or_create(email: 'admin@chudisoft.com', password: 'Admin_2023', fname: 'Admin Account', role: :admin)
 # User.find_or_create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :member)
 # User.find_or_create(email: 'user@chudisoft.com', password: 'User_2023', fname: 'User Account', role: :guest)

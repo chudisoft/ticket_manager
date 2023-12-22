@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'home#index'
+  # root 'home#index'
+  root 'events#index_Unauth'
   devise_for :users, controllers: { registrations: 'registrations' }
 
   # resources :speaker_events

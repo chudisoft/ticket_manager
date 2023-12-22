@@ -1,0 +1,71 @@
+<%= form_for(event) do |f| %>
+  <div class="form-group">
+    <%= f.label :title %>
+    <%= f.text_field :title, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :datetime %>
+    <%= f.datetime_local_field :datetime, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :venue %>
+    <%= f.text_field :venue, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :details %>
+    <%= f.text_area :details, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :vip_price %>
+    <%= f.number_field :vip_price, class: 'form-control', step: '0.01', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :regular_price %>
+    <%= f.number_field :regular_price, class: 'form-control', step: '0.01', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :available_slot %>
+    <%= f.number_field :available_slot, class: 'form-control', required: true %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :hashes %>
+    <%= f.text_field :hashes_input, id: 'hashes-input', class: 'form-control', placeholder: 'Enter options separated by commas' %>
+    <!-- Hidden field to store the validated hashes -->
+    <%= f.hidden_field :hashes %>
+  </div>
+
+  <div class="form-group pt-2">
+    <%= f.submit 'Save', class: 'btn btn-primary w-100' %>
+  </div>
+<% end %>
+
+
+<script>
+  $(document).ready(function() {
+    var availableHashes = ['Conference', 'Workshop', 'Seminar', 'Party']; // Your available options
+
+    $('#hashes-input').autocomplete({
+      source: availableHashes,
+      minLength: 1,
+      multiple: true, // Allow multiple values
+      focus: function(event, ui) {
+        event.preventDefault(); // Prevent the default behavior
+        $(this).val(ui.item.value); // Set the input value to the focused item
+      },
+      select: function(event, ui) {
+        var terms = this.value.split(',');
+        terms.pop(); // Remove the current incomplete input
+        terms.push(ui.item.value); // Add the selected item
+        this.value = terms.join(','); // Update the input value
+        return false;
+      }
+    });
+  });
+</script>

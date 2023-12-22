@@ -58,9 +58,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_145459) do
     t.datetime "datetime", null: false
     t.string "venue", null: false
     t.string "details", null: false
+    t.string "hashes"
     t.decimal "vip_price", null: false
     t.decimal "regular_price", null: false
     t.integer "available_slot", null: false
+    t.integer "status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -111,12 +113,13 @@ ActiveRecord::Schema[7.1].define(version: 2023_12_17_145459) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "fname", default: "", null: false
-    t.string "phone", default: "", null: false
+    t.string "phone", default: ""
     t.string "address", default: ""
     t.boolean "remember_card", default: false
-    t.string "creadit_card", default: ""
-    t.string "creadit_card_expiry", default: ""
+    t.string "credit_card", default: ""
+    t.string "credit_card_expiry", default: ""
     t.string "role", default: "guest", null: false
+    t.integer "status", default: 1, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
