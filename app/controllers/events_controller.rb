@@ -54,10 +54,16 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = current_user.events.build(event_params)
+    # @event = current_user.events.build(event_params)
+    @event = Event.new(event_params)
+    @event.status = 0
+    @event.organizer_id = current_user.id
     if @event.save
-      redirect_to events_path, notice: 'Event was successfully created.'
+      # redirect_to events_path, notice: 'Event was successfully created.'
+      redirect_to speaker_events_path(@event), notice: 'Event was successfully created.'
     else
+      pp @event.errors.messages
+      flash[:error] = @event.errors.full_messages.to_sentence
       render :new
     end
   end
@@ -88,6 +94,9 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:title, :datetime, :venue, :details, :vip_price, :regular_price, :available_slot, :status, :organizer_id)
+    params.require(:event).permit(
+      :title, :datetime, :venue, :details, :vip_price,
+      :regular_price, :available_slot, :status, :hashes
+    )
   end
 end

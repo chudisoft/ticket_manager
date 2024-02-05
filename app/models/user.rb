@@ -1,5 +1,6 @@
 # This Class handles operations related to User Record
 class User < ApplicationRecord
+  before_create :assign_uuid
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
@@ -28,5 +29,11 @@ class User < ApplicationRecord
     return if fname.blank? || fname.split.size >= 2
 
     errors.add(:fname, 'Name must contain at least two names separated by a space')
+  end
+
+  private
+
+  def assign_uuid
+    self.id = SecureRandom.uuid
   end
 end

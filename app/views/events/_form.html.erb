@@ -35,10 +35,16 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :hashes %>
-    <%= f.text_field :hashes_input, id: 'hashes-input', class: 'form-control', placeholder: 'Enter options separated by commas' %>
+    <label>
+      Tag(s)
+    </label>
     <!-- Hidden field to store the validated hashes -->
-    <%= f.hidden_field :hashes %>
+    <%= f.text_field :hashes, disabled: true, hidden: true %>
+    <div class="tags-input"> 
+        <ul id="tags"></ul> 
+        <input type="text" id="input-tag", class='form-control' 
+            placeholder="Add a tag" /> 
+    </div> 
   </div>
 
   <div class="form-group pt-2">
@@ -46,26 +52,48 @@
   </div>
 <% end %>
 
-
 <script>
-  $(document).ready(function() {
-    var availableHashes = ['Conference', 'Workshop', 'Seminar', 'Party']; // Your available options
+  // Get the tags and input elements from the DOM
+  const tags = document.getElementById('tags');
+  const input = document.getElementById('input-tag');
+  const hiddenHashesField = document.querySelector('input[name="event[hashes]"]');
 
-    $('#hashes-input').autocomplete({
-      source: availableHashes,
-      minLength: 1,
-      multiple: true, // Allow multiple values
-      focus: function(event, ui) {
-        event.preventDefault(); // Prevent the default behavior
-        $(this).val(ui.item.value); // Set the input value to the focused item
-      },
-      select: function(event, ui) {
-        var terms = this.value.split(',');
-        terms.pop(); // Remove the current incomplete input
-        terms.push(ui.item.value); // Add the selected item
-        this.value = terms.join(','); // Update the input value
-        return false;
+  // Initialize an array to store tags
+  const tagArray = [];
+
+  // Add an event listener for keydown on the input element
+  input.addEventListener('keydown', function (event) {
+
+    // Check if the key pressed is 'Enter'
+    if (event.key === 'Enter') {
+
+      // Prevent the default action of the keypress event (submitting the form)
+      event.preventDefault();
+
+      // Get the tag value from the input and trim whitespace
+      const tagValue = input.value.trim();
+
+      // Check if the tag is not empty and is not already in the array
+      if (tagValue && !tagArray.includes(tagValue)) {
+
+        // Add the tag to the array
+        tagArray.push(tagValue);
+
+        // Create a new list item element for the tag
+        const tag = document.createElement('li');
+
+        // Set the text content of the tag to the input value
+        tag.innerText = tagValue;
+
+        // Append the tag to the tags list
+        tags.appendChild(tag);
+
+        // Update the hidden hashes field with the comma-separated tags
+        hiddenHashesField.value = tagArray.join(',');
       }
-    });
+
+      // Clear the input element's value
+      input.value = '';
+    }
   });
 </script>

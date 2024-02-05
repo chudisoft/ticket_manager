@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   # resources :events #, only: [:new, :edit, :create, :destroy]
   # resources :bookings #, only: [:new, :edit, :create, :destroy]
   resources :events do
+    resources :speakers, controller: 'speaker_events'
     resources :bookings do
       resources :payments
     end
